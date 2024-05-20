@@ -81,6 +81,10 @@ article.square{
     background-color: aqua;
 }
 
+.bg-bomb{
+    background-color: firebrick;
+}
+
 /* classi semantiche */
 .justify-center{
     justify-content: center;

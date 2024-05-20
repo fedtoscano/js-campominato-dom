@@ -49,28 +49,47 @@ function gameStart(){
 
         bombList.forEach(num => {
             if(num===Number.parseInt(textContent.innerHTML, 10)){
-                console.log("its a bomb", num)
+                newSquare.classList.add("square-bomb")
             }
             
         });
 
-        //! questa va riscritta con la funzione "vera" per le bombe
+        let gameOver;
+
+        function isBomb(square){ 
+            if(square.classList.contains("square-bomb")){
+                square.classList.add("bg-bomb")
+                gameOver = true
+                console.log(gameOver)
+            }else {
+                square.classList.add("bg-light-blue")
+            }
+        
+        }
+        
         newSquare.addEventListener('click', function(){
-            this.classList.add("bg-light-blue")
-            console.log(this.innerText)
+            isBomb(newSquare)
         })
-    
+
+        if(gameOver===true){
+            console.log("You lost")
+        }
+        // while(!gameOver){
+        //     let totalPoints = 0
+
+        // }
+
+
         newSquare.appendChild(textContent)
         gridEl.appendChild(newSquare)
     }
 
-
-
     console.log(bombList)
-
-
     // button.disabled = true
 }
+
+
+
 /**returns a random number between a min and a max value
  * 
  * @param {*} min the min number   
@@ -79,6 +98,23 @@ function gameStart(){
  */
 function makeRandomInt(min, max){
     return Math.floor(Math.random() * ((max - min) +1) + min)
-}
+};
+
+// // /**Checks if the current square is a bomb or a clear square
+// //  * 
+// //  */
+// // function isBomb(square){ 
+// //     if(square.classList.contains("square-bomb")){
+// //         square.classList.add("bg-bomb")
+// //         gameOver = true
+// //         console.log(gameOver)
+// //     }else {
+// //         square.classList.add("bg-light-blue")
+// //     }
+
+// // }
+
+
+
 
 startBtn.addEventListener('click', gameStart)
