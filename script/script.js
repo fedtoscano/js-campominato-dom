@@ -12,8 +12,9 @@ function gameStart(){
 
     const scoreTextEl = document.createElement("p");
     const scoreNumEl = document.createElement("span")
-    scoreTextEl.append("Your total score is:");
-    scoreNumEl.append("0")
+    scoreTextEl.append("Your total score is: ");
+    let score=0
+    scoreNumEl.append(score)
 
     scoreTextEl.appendChild(scoreNumEl);
     mainEl.appendChild(scoreTextEl);
@@ -42,7 +43,6 @@ function gameStart(){
     for (let index = 0; index < numberOfSquares; index++) {
         const newSquare = document.createElement("article");
         newSquare.classList.add("square")
-
             if(selectDifficultyEl.value==="easy"){
                 newSquare.classList.add("square-easy")
             }else if(selectDifficultyEl.value==="medium"){
@@ -51,7 +51,6 @@ function gameStart(){
                 newSquare.classList.add("square-hard")
             }
 
-        
         const textContent = document.createElement("span")
         textContent.append(index+1)
 
@@ -59,8 +58,10 @@ function gameStart(){
             if(num===Number.parseInt(textContent.innerHTML, 10)){
                 newSquare.classList.add("square-bomb")
             }
-            
-        });
+        })
+
+        const allBombs = document.querySelectorAll(".square-bomb")
+
 
         let gameOver;
 
@@ -76,18 +77,20 @@ function gameStart(){
         }
         
         newSquare.addEventListener('click', function(){
+            
             isBomb(newSquare)
+
+            if(gameOver===true){
+                //prendi tutti gli square che hanno la classe square-bomb
+                //aggiungi anche bg-bomb e disabilita l'addeventlistener
+                
+                allBombs.classList.add("bg-bomb")
+                console.log("You lost")
+            } else{
+                score++
+                scoreNumEl.innerHTML = score
+            }
         })
-
-        if(gameOver===true){
-            console.log("You lost")
-        }
-
-        // while(!gameOver){
-        //     let totalPoints = 0
-
-        // }
-
 
         newSquare.appendChild(textContent)
         gridEl.appendChild(newSquare)
