@@ -85,11 +85,17 @@ function gameStart(){
                 //aggiungi anche bg-bomb e disabilita l'addeventlistener
                 //! il query selector all restituisce una NODELIST
                 const allBombs = document.querySelectorAll(".square-bomb")
-                
                 allBombs.forEach(bomb => {
                 bomb.classList.add("bg-bomb")
-                    });
-                console.log("You lost")
+                });
+                
+                const allSquares = document.querySelectorAll(".square")
+                allSquares.forEach(square =>{
+                    square.removeEventListener('click', function(){
+                        isBomb(newSquare)
+                    })
+                })
+                
             } else{
                 score++
                 scoreNumEl.innerHTML = score
