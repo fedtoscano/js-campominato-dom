@@ -15,7 +15,6 @@ function gameStart(){
     scoreTextEl.append("Your total score is: ");
     let score=0
     scoreNumEl.append(score)
-
     scoreTextEl.appendChild(scoreNumEl);
     mainEl.appendChild(scoreTextEl);
 
@@ -39,72 +38,68 @@ function gameStart(){
         bombList.push(randomNum);
     }
     
+        // bombList.forEach(bombNum => {
+        //     if(bombNum===parseInt(textContent.innerHTML, 10)){
+        //         newSquare.classList.add("square-bomb")
+        //     }
+        // })
 
-    for (let index = 0; index < numberOfSquares; index++) {
-        const newSquare = document.createElement("article");
-        newSquare.classList.add("square")
-            if(selectDifficultyEl.value==="easy"){
-                newSquare.classList.add("square-easy")
-            }else if(selectDifficultyEl.value==="medium"){
-                newSquare.classList.add("square-medium")
-            }else{
-                newSquare.classList.add("square-hard")
-            }
-
-        const textContent = document.createElement("span")
-        textContent.append(index+1)
-
-        bombList.forEach(bombNum => {
-            if(bombNum===parseInt(textContent.innerHTML, 10)){
-                newSquare.classList.add("square-bomb")
-            }
-        })
-
-
-
-
-        let gameOver;
-
+        
         function isBomb(square){ 
+            let gameOver= false;
             if(square.classList.contains("square-bomb")){
                 square.classList.add("bg-bomb")
                 gameOver = true
-                console.log(gameOver)
             }else {
                 square.classList.add("bg-light-blue")
             }
-        
-        }
-        
-        newSquare.addEventListener('click', function(){
-            
-            isBomb(newSquare)
 
-            if(gameOver===true){
-                //prendi tutti gli square che hanno la classe square-bomb
-                //aggiungi anche bg-bomb e disabilita l'addeventlistener
+            if(gameOver){
                 //! il query selector all restituisce una NODELIST
                 const allBombs = document.querySelectorAll(".square-bomb")
                 allBombs.forEach(bomb => {
                 bomb.classList.add("bg-bomb")
                 });
                 
-                const allSquares = document.querySelectorAll(".square")
-                allSquares.forEach(square =>{
-                    square.removeEventListener('click', function(){
-                        isBomb(newSquare)
-                    })
+                const allSquares = document.querySelectorAll(".square");
+                allSquares.forEach(square => {
+                    square.removeEventListener('click', onClick);
                 })
                 
             } else{
                 score++
                 scoreNumEl.innerHTML = score
             }
-        })
+        }
+        
+        function onClick(event){
+            isBomb(event.currentTarget)
+        }
 
+        for (let index = 0; index < numberOfSquares; index++) {
+            const newSquare = document.createElement("article");
+            newSquare.classList.add("square")
+                if(selectDifficultyEl.value==="easy"){
+                    newSquare.classList.add("square-easy")
+                }else if(selectDifficultyEl.value==="medium"){
+                    newSquare.classList.add("square-medium")
+                }else{
+                    newSquare.classList.add("square-hard")
+                }
+        const textContent = document.createElement("span");
+        textContent.append(index + 1);
+        newSquare.appendChild(textContent);
+
+        if (bombList.includes(index + 1)) {
+            newSquare.classList.add("square-bomb");
+        }
+        
         newSquare.appendChild(textContent)
+        newSquare.addEventListener('click', onClick)
         gridEl.appendChild(newSquare)
     }
+
+
 
     console.log(bombList)
     // button.disabled = true
@@ -121,7 +116,5 @@ function gameStart(){
 function makeRandomInt(min, max){
     return Math.floor(Math.random() * ((max - min) +1) + min)
 };
-
-
 
 startBtn.addEventListener('click', gameStart)
