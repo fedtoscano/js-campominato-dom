@@ -33,6 +33,7 @@ select#select-difficulty{
 }
 main{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: lightcyan;
@@ -47,6 +48,7 @@ main{
     width:450px;
     height:450px;
     border: 2px solid darkblue;
+    margin-bottom: 2em
 }
 footer{
     display: flex;

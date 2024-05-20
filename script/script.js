@@ -10,6 +10,14 @@ function gameStart(){
     mainEl.innerHTML = ""
     mainEl.appendChild(gridEl);
 
+    const scoreTextEl = document.createElement("p");
+    const scoreNumEl = document.createElement("span")
+    scoreTextEl.append("Your total score is:");
+    scoreNumEl.append("0")
+
+    scoreTextEl.appendChild(scoreNumEl);
+    mainEl.appendChild(scoreTextEl);
+
     const selectDifficultyEl = document.querySelector("#select-difficulty");
 
     let numberOfSquares;
@@ -74,6 +82,7 @@ function gameStart(){
         if(gameOver===true){
             console.log("You lost")
         }
+
         // while(!gameOver){
         //     let totalPoints = 0
 
