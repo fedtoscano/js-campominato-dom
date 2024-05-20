@@ -14,12 +14,22 @@ function gameStart(){
 
     let numberOfSquares;
     if(selectDifficultyEl.value==="easy"){
-        numberOfSquares = 49
+        numberOfSquares = 100
     }else if(selectDifficultyEl.value ==="medium"){
         numberOfSquares = 81
     }else{
-        numberOfSquares = 100
+        numberOfSquares = 49
     }
+
+    let bombList = [];
+    for (let index = 0; index < 16; index++) {
+        let randomNum = makeRandomInt(1, numberOfSquares);
+        while (bombList.includes(randomNum)) {
+            randomNum = makeRandomInt(1, numberOfSquares);
+        }
+        bombList.push(randomNum);
+    }
+    
 
     for (let index = 0; index < numberOfSquares; index++) {
         const newSquare = document.createElement("article");
@@ -33,30 +43,32 @@ function gameStart(){
                 newSquare.classList.add("square-hard")
             }
 
-                //! questa va riscritta con la funzione "vera" per le bombe
+        
+        const textContent = document.createElement("span")
+        textContent.append(index+1)
+
+        bombList.forEach(num => {
+            if(num===Number.parseInt(textContent.innerHTML, 10)){
+                console.log("its a bomb", num)
+            }
+            
+        });
+
+        //! questa va riscritta con la funzione "vera" per le bombe
         newSquare.addEventListener('click', function(){
             this.classList.add("bg-light-blue")
             console.log(this.innerText)
         })
     
-        const textContent = document.createElement("span")
-        textContent.append(index+1)
-    
         newSquare.appendChild(textContent)
         gridEl.appendChild(newSquare)
     }
-    
-    let bombList = [];
-    for (let index = 0; index < 16; index++) {
 
-        let randomNum = makeRandomInt(1, numberOfSquares)
-        while (bombList.includes(randomNum)!==true) {
-            randomNum = makeRandomInt(1, numberOfSquares)
-            bombList.push(randomNum);
-        }
-        
-    }
+
+
     console.log(bombList)
+
+
     // button.disabled = true
 }
 /**returns a random number between a min and a max value

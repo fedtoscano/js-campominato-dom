@@ -65,14 +65,14 @@ article.square{
 }
 
 .square-easy{ 
-    width: calc(100% / 7);
-    height: calc(100% / 7);}
+    width: calc(100% / 10);
+    height: calc(100% / 10);}
 .square-medium{   
     width: calc(100% / 9);
     height: calc(100% / 9);}
 .square-hard{
-    width: calc(100% / 10);
-    height: calc(100% / 10);
+    width: calc(100% / 7);
+    height: calc(100% / 7);
 }
 
 
