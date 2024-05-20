@@ -1,9 +1,9 @@
 
 const startBtn = document.querySelector("button#start-game")
-// ? const resetBtn?
+startBtn.addEventListener('click', gameStart)
+// // ? const resetBtn?
 
 function gameStart(){
-
     const mainEl = document.querySelector("main");
     const gridEl = document.createElement("div");
     gridEl.id = "grid";
@@ -37,14 +37,7 @@ function gameStart(){
         }
         bombList.push(randomNum);
     }
-    
-        // bombList.forEach(bombNum => {
-        //     if(bombNum===parseInt(textContent.innerHTML, 10)){
-        //         newSquare.classList.add("square-bomb")
-        //     }
-        // })
 
-        
         function isBomb(square){ 
             let gameOver= false;
             if(square.classList.contains("square-bomb")){
@@ -55,7 +48,6 @@ function gameStart(){
             }
 
             if(gameOver){
-                //! il query selector all restituisce una NODELIST
                 const allBombs = document.querySelectorAll(".square-bomb")
                 allBombs.forEach(bomb => {
                 bomb.classList.add("bg-bomb")
@@ -63,12 +55,13 @@ function gameStart(){
                 
                 const allSquares = document.querySelectorAll(".square");
                 allSquares.forEach(square => {
-                    square.removeEventListener('click', onClick);
+                square.removeEventListener('click', onClick);
                 })
                 
             } else{
                 score++
                 scoreNumEl.innerHTML = score
+                square.removeEventListener('click', onClick);
             }
         }
         
@@ -98,11 +91,7 @@ function gameStart(){
         newSquare.addEventListener('click', onClick)
         gridEl.appendChild(newSquare)
     }
-
-
-
     console.log(bombList)
-    // button.disabled = true
 }
 
 
@@ -117,4 +106,3 @@ function makeRandomInt(min, max){
     return Math.floor(Math.random() * ((max - min) +1) + min)
 };
 
-startBtn.addEventListener('click', gameStart)
