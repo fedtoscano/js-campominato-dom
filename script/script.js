@@ -54,13 +54,13 @@ function gameStart(){
         const textContent = document.createElement("span")
         textContent.append(index+1)
 
-        bombList.forEach(num => {
-            if(num===Number.parseInt(textContent.innerHTML, 10)){
+        bombList.forEach(bombNum => {
+            if(bombNum===parseInt(textContent.innerHTML, 10)){
                 newSquare.classList.add("square-bomb")
             }
         })
 
-        const allBombs = document.querySelectorAll(".square-bomb")
+
 
 
         let gameOver;
@@ -83,8 +83,12 @@ function gameStart(){
             if(gameOver===true){
                 //prendi tutti gli square che hanno la classe square-bomb
                 //aggiungi anche bg-bomb e disabilita l'addeventlistener
+                //! il query selector all restituisce una NODELIST
+                const allBombs = document.querySelectorAll(".square-bomb")
                 
-                allBombs.classList.add("bg-bomb")
+                allBombs.forEach(bomb => {
+                bomb.classList.add("bg-bomb")
+                    });
                 console.log("You lost")
             } else{
                 score++
@@ -111,21 +115,6 @@ function gameStart(){
 function makeRandomInt(min, max){
     return Math.floor(Math.random() * ((max - min) +1) + min)
 };
-
-// // /**Checks if the current square is a bomb or a clear square
-// //  * 
-// //  */
-// // function isBomb(square){ 
-// //     if(square.classList.contains("square-bomb")){
-// //         square.classList.add("bg-bomb")
-// //         gameOver = true
-// //         console.log(gameOver)
-// //     }else {
-// //         square.classList.add("bg-light-blue")
-// //     }
-
-// // }
-
 
 
 
